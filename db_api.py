@@ -22,6 +22,8 @@ class Database:
         connection.close()
         return data
 
+    # We can select products from the product table, filter them passing parameters as keyword arguments (if needed)
+    # For example: select_all_products(status=1)
     def select_all_products(self, **kwargs):
         if kwargs:
             sql = """SELECT * FROM product WHERE """
@@ -30,6 +32,7 @@ class Database:
         sql = """SELECT * FROM product"""
         return self.execute(sql, fetchall=True)
 
+    # Query to select products for our feed
     def select_products_feed(self):
         sql = """SELECT DISTINCT p.product_id AS id,
                                  p_desc.name AS title,
@@ -37,8 +40,8 @@ class Database:
                                  'https://butopea.com/p/' || p.product_id AS link,
                                  'https://butopea.com/' || p.image AS image_link,
                                  p_img.additional_image_link,
-                                 IIF(p.quantity > CAST (1 AS INT), 'in_stock', 'out_of_stock') AS availability,
-                                 p.price || 'HUF' AS price,
+                                 IIF(p.quantity > CAST (0 AS INT), 'in_stock', 'out_of_stock') AS availability,
+                                 p.price || ' HUF' AS price,
                                  m.name AS brand,
                                  'new' AS condition
                    FROM product AS p,
