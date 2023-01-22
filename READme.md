@@ -29,3 +29,6 @@ py main.py
 Some variables (title, link, description) for feed.xml can be edited in config.py
 
 Our database (data.sqlite) is in the root directory, db_api.py contains the Database class with the SQL query.
+
+
+##### Yurii Palamarchuk
